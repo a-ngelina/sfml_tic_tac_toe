@@ -22,7 +22,6 @@ int main() {
     std::string player1 = "player1", player2 = "player2";
     
 
-    //drawing the board
     Button player1_button(sf::Vector2f(250, 10), sf::Vector2f(350, 70), sf::Color::Black, player1, font, 50, sf::Vector2f(255, 10), sf::Color::White);
     player1_button.getShape().setOutlineThickness(3);
     player1_button.getShape().setOutlineColor(sf::Color::White);
@@ -72,7 +71,6 @@ int main() {
         sf::Event event;
 
         
-        //closing the window
         while (window.pollEvent(event)) {
             if (event.type == event.Closed) {
                 window.close();
@@ -82,7 +80,6 @@ int main() {
                 reading_player1 = 0, reading_player2 = 0;
                 sf::Vector2i mouse_position = sf::Mouse::getPosition(window);
 
-                //the score needs to be reset
                 if (reset_score_button.ButtonClicked(mouse_position)) {
                     score1 = 0, score2 = 0;
                     clearBoard(board_buttons, curr_player);
@@ -90,12 +87,10 @@ int main() {
                     score2_text.setString(std::to_string(score2));
                 }
 
-                //the booard needs to be reset
                 else if (reset_board_button.ButtonClicked(mouse_position)) {
                     clearBoard(board_buttons, curr_player);
                 }
 
-                //board clicked
                 else if (board_button.ButtonClicked(mouse_position)) {
                     int i = getRow(mouse_position.y), j = getColumn(mouse_position.x);
                     if (i >= 0 && j >= 0 && board_buttons[i][j].getLabel().getString() != "x" && board_buttons[i][j].getLabel().getString() != "o") {
@@ -126,12 +121,10 @@ int main() {
                     score2_text.setString(std::to_string(score2));
                 }
                 
-                //reading player usernames
                 else if (player1_button.ButtonClicked(mouse_position)) reading_player1 = 1;
                 else if (player2_button.ButtonClicked(mouse_position)) reading_player2 = 1;
             }
 
-            //reading player usernames
             else if (reading_player1 == 1 || reading_player2 == 1) {
                 Button& curr_button = (reading_player1 == 1 ? buttons[0] : buttons[1]);
                 std::string& curr_str_player = (reading_player1 == 1 ? player1 : player2);
